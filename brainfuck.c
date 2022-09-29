@@ -297,7 +297,7 @@ long LoadFile (FILE* bitFile, unsigned char** ptr)
 }
 
 #define FILE_NAME_BUFFOR 1000
-#define TMP_FILE_PATH "/tmp/%s%u.tmpcf"
+#define TMP_FILE_PATH "/tmp/brainfuck%u.tmpcf"
 
 int main (int argc, char** argv)
 {
@@ -394,7 +394,7 @@ int main (int argc, char** argv)
     }
 
     if ( temporaryOutputFile ) {
-        sprintf( outputFileName, TMP_FILE_PATH, argv[0], getpid() );
+        sprintf( outputFileName, TMP_FILE_PATH, getpid() );
     } else if ( !explicitOutputFile ) {
         sprintf( outputFileName, "./out.cf" );
     }
