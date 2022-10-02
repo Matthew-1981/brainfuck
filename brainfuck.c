@@ -251,7 +251,7 @@ int BrainfuckInterpret (brainfuck_t* machine, unsigned char* bitCode, size_t cod
 
             case INP:
                 count = fgetc( stdin );
-                if ( count == EOF )
+                if ( (int) count == EOF )
                     count = 0;
                 machine->memory[ machine->ac ] = (unsigned char) count;
                 break;
@@ -427,7 +427,11 @@ int main (int argc, char** argv)
         unsigned char* bitcode;
 
         long bitcodeSize = LoadFile( bitFile, &bitcode );
+
         fclose( bitFile );
+        if ( compile && temporaryOutputFile )
+            unlink( outputFileName );
+
         int out = BrainfuckInterpret( machine, bitcode, bitcodeSize );
 
         free( machine );
@@ -438,9 +442,6 @@ int main (int argc, char** argv)
             return 3;
         }
     }
-
-    if ( temporaryOutputFile )
-        unlink( outputFileName );
 
     return 0;
 
